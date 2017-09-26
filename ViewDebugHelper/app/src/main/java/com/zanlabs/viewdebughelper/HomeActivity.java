@@ -1,8 +1,9 @@
 package com.zanlabs.viewdebughelper;
 
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,11 +13,14 @@ import android.widget.Toast;
 import com.zanlabs.viewdebughelper.service.FloatWindowService;
 import com.zanlabs.viewdebughelper.util.AccessibilityServiceHelper;
 
+import cn.qqtheme.framework.picker.ColorPicker;
+
 public class HomeActivity extends AppCompatActivity {
 
     Button mActionBtn;
     Button mActiveServiceBtn;
     boolean mIsServiceRunning;
+    Button btnChangeColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +28,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         mActionBtn= (Button) findViewById(R.id.home_action_btn);
         mActiveServiceBtn= (Button) findViewById(R.id.home_activte_service_btn);
+        btnChangeColor = (Button) findViewById(R.id.home_action_change_color);
         mActionBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,6 +46,27 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AccessibilityServiceHelper.goServiceSettings(HomeActivity.this);
+            }
+        });
+
+
+        btnChangeColor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(FloatWindowService.isRunning()){
+                    ColorPicker colorPicker = new ColorPicker(HomeActivity.this);
+                    colorPicker.setOnColorPickListener(new ColorPicker.OnColorPickListener() {
+                        @Override
+                        public void onColorPicked(@ColorInt int pickedColor) {
+                            MyWindowManager.updateTxtColor(pickedColor);
+
+                        }
+                    });
+                    colorPicker.show();
+                }else {
+                    Toast.makeText(HomeActivity.this,"service not started",Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
         checkApiGreaterThanLollipop();

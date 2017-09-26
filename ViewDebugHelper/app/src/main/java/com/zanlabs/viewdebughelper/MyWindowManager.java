@@ -6,6 +6,7 @@ import android.graphics.PixelFormat;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
+import android.support.annotation.ColorInt;
 import android.view.Gravity;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
@@ -68,6 +69,10 @@ public class MyWindowManager {
 			mFloatWindow.setParams(mFloatWindowParams);
 			windowManager.addView(mFloatWindow, mFloatWindowParams);
 		}
+	}
+
+	public static void updateTxtColor(@ColorInt int color){
+		mFloatWindow.getTextView().setTextColor(color);
 	}
 
 	/**

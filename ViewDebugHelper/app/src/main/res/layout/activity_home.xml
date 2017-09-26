@@ -16,4 +16,10 @@
         android:layout_width="fill_parent"
         android:layout_height="100dp"
         android:text="设置ViewDebugHelper服务"/>
+
+    <Button
+            android:id="@+id/home_action_change_color"
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:text="更改字体颜色"/>
 </LinearLayout>

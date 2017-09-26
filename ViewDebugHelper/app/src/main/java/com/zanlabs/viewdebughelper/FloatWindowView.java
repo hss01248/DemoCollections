@@ -1,7 +1,5 @@
 package com.zanlabs.viewdebughelper;
 
-import java.lang.reflect.Field;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -9,6 +7,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import java.lang.reflect.Field;
 
 public class FloatWindowView extends LinearLayout {
 
@@ -67,6 +67,12 @@ public class FloatWindowView extends LinearLayout {
 	 */
 	private float yInView;
 
+	public TextView getTextView() {
+		return textView;
+	}
+
+	TextView textView ;
+
 	public FloatWindowView(Context context) {
 		super(context);
 		windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -74,6 +80,7 @@ public class FloatWindowView extends LinearLayout {
 		View view = findViewById(R.id.small_window_layout);
 		viewWidth = view.getLayoutParams().width;
 		viewHeight = view.getLayoutParams().height;
+		textView = (TextView) view.findViewById(R.id.float_textview);
 	}
 
 	@Override
